@@ -10,9 +10,7 @@ log.setLevel(logging.INFO)
 
 app = Flask(__name__)
 
-session = boto3.Session(profile_name="figgy-dev-sandbox")
-ssm = session.client('ssm')
-# ssm = boto3.client("ssm", region_name='us-east-1')
+ssm = boto3.client('ssm', region_name='us-east-1')
 svc = FigService(ssm)
 FIGS = Figs(svc, lazy_load=False)
 

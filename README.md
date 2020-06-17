@@ -72,6 +72,15 @@ Install requirements
     pip3 install -r src/requirements.txt
 ```
 
+Export temporary credentials so our app has permissions to access ParameterStore. This will write temporary credentials 
+to your ~/.aws/credentials file under the `[default]` profile. If you use [default], backup your existing credentials file. 
+
+```console
+    cp ~/.aws/credentials ~/.aws/credentials.backup
+
+    figgy iam export --env dev
+```
+
 Run it!
 ```
     python3 src/app.py
@@ -87,7 +96,8 @@ In src/config.py add a new `AppFig`
     SECRET_ADMIRER = AppFig("secret-admirer")
     ADMIRED_PERSON = AppFig("admired-person")
     SQL_DB_NAME = AppFig("db-name", default="SecretAdmirerDB")
-    YOUR_FIG_HERE = AppFig("new-configuration")    <--- Add this - or something like it
+
+    YOUR_FIG_HERE = AppFig("new-configuration")  # <--- Add this - or something like it
 ```
 
 Re run the app:
@@ -105,6 +115,7 @@ Rerun sync
 You'll be prompted to add the missing config.
 
 Other paths to experiment with:
+    - Browe the Fig Orchard to see your configurations: `figgy config browse --env dev`
     - Delete the config, then rerun sync (this will prompt you to run cleanup)
     - Try enabling lazy_load=True in `src/app.py`
         - This will enable you to run the app to generate the figgy.json, run sync, then use the app and have it 
