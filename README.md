@@ -25,7 +25,7 @@ Many people could be playing in this sandbox so this will reduce the liklihood y
 playing right now. 
 
 ### Second: Add our secret configs
-Take notice of the `figgy.json` file in your root directory.
+Take notice of the `figgy-dba.json` and `figgy.json` file in your root directory.
 
 1. Log-in to the figgy sandbox: [More Instructions](https://www.figgy.dev/docs/getting-started/sandbox.html)
 
