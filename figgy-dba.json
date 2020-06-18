@@ -1,6 +1,0 @@
-{
-  "replicate_figs": {
-    "/dba/secrets/mysql/demo-service/user": "/app/demo-service/replicated/sql/user",
-    "/dba/secrets/mysql/demo-service/password": "/app/demo-service/replicated/sql/password"
-  }
-}

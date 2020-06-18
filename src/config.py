@@ -7,11 +7,14 @@ log = logging.getLogger(__name__)
 # Constants
 ENV_LOCAL_RUN = 'LOCAL_RUN'
 
+# Service Name
+SERVICE_NAME: str = 'jordos-playground'
+
 
 # All PS configurations are defined in our FigStore
 class Figs(FigStore):
     # Twig = /app/your-service-name (this is required)
-    TWIG: str = "/app/demo-service"
+    TWIG: str = f"/app/{SERVICE_NAME}"
 
     # Custom Figs specific to my application (app figs)
     SECRET_ADMIRER = AppFig("secret-admirer")

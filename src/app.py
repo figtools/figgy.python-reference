@@ -16,7 +16,7 @@ FIGS = Figs(svc, lazy_load=False)
 
 # Write & Update our current `figgy.json` file on every server run. This ensures our application & configs are in sync.
 if os.environ.get(ENV_LOCAL_RUN) == "true":
-    ConfigWriter().write(FIGS)
+    ConfigWriter().write(FIGS, destination_dir="figgy")
 
 
 @app.route("/ok")

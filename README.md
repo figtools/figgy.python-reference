@@ -4,89 +4,101 @@ An example Flask application demonstrating how you can leverage Figgy for applic
 To run the DEMO from top to bottom, these are the requirements:
 
 - FiggyCLI must be installed: [Install instructions](https://www.figgy.dev/docs/getting-started/install.html)
-- You'll need python 3.7+ installed [Install instructions](https://www.python.org/downloads/)
 
 ### First: Pick a service name:
 Open `src/config.py`
 
 Change
 ```python
-    TWIG: str = "/app/demo-service"
+11    SERVICE_NAME: str = "demo-service"
 ```
 To:
 
 ```python
-    TWIG: str = "/app/YOUR_CUSTOM_NAME_HERE"
+11    SERVICE_NAME: str = "YOUR_CUSTOM_NAME_HERE"
 ```
 
-maybe something like `/app/YOUR_NAME-playground`? :)
+maybe something like `YOUR_NAME-playground`? :)
 
-Many people could be playing in this sandbox so this will reduce the liklihood you'll get a name collision with someone
+Many people could be playing in this sandbox so this will reduce the likelihood you'll get a name collision with someone
 playing right now. 
 
 ### Second: Add our secret configs
-Take notice of the `figgy-dba.json` and `figgy.json` file in your root directory.
+Take notice of the `figgy-secrets.json` in your `figgy/` directory.
+
+1. Open `figgy-secrets.json` and replace `YOUR_SERVICE` with the service name you just selected. There are 4 places to update in this file.
+
+Great, in this case, lets pretend you're a DBA and you're creating a definition of all secrets you manage for `YOUR_SERVICE`,
+this is the definition of what they are, where they're stored, and what application is using them. 
+Now we just need to add the secrets and share it with the service.
 
 1. Log-in to the figgy sandbox: [More Instructions](https://www.figgy.dev/docs/getting-started/sandbox.html)
 
-You will want to select the DBA role. 
+You will want to select the **DBA** role. The other options are whatever you want.
  
 ```console
-    figgy login sandbox
+    $   figgy login sandbox
+
+    Please select a role to impersonate:
+    Options: ['dev', 'devops', 'sre', 'data', 'dba']
+-----> dba <------
 ```
 
-Right now you're impersonating the DBA, since you're the Secret Owner, lets store the secrets your app needs:
+Great, you're now impersonating the DBA, since you're the *secret owner*, lets store the secrets your app needs:
 ```console
-    figgy config sync --config figgy-dba.json --env dev --replication-only
+    figgy config sync --config figgy/figgy-secrets.json --env dev --replication-only
 ```
+
 Follow the prompts, you'll be asked to add a username / password. You can put anything and encrypt it with whatever
 encryption key you want ;). 
 
-Booya, bet you just stored some UBER secret credentials AND you shared them with our application! Woo woo!
+Booya, you just stored some UBER secret credentials AND you shared them with our application! Woo woo! :sunglasses:
 
 ### Third: Add our application configs
 Next, lets impersonate a developer, so lets re-login to the sandbox and select `dev` for the ROLE.
 
 ```console
-    figgy login sandbox
+    $   figgy login sandbox
+
+    Please select a role to impersonate:
+    Options: ['dev', 'devops', 'sre', 'data', 'dba']
+-----> dev <------
 ```
-
-Then after login run sync:
-```console
-    figgy config sync --config figgy.json --env dev
-```
-
-You'll be prompted to add the required configurations that are missing.
-
-If you `re-run` `figgy config sync --config figgy.json --env dev` you should see `Sync completed with no errors!` 
 
 ### Fourth: Run our app!
 
-Set local run ENV variable:
-```console
-    export LOCAL_RUN=true
-```
-
-Install requirements
-```console
-    pip3 install -r src/requirements.txt
-```
-
 Export temporary credentials so our app has permissions to access ParameterStore. This will write temporary credentials 
-to your ~/.aws/credentials file under the `[default]` profile. If you use [default], backup your existing credentials file. 
+to your `~/.aws/credentials` file under the `[default]` profile. If you use `[default]`, backup your existing credentials file. 
+
+1. Backup your credentials file
+```console
+    $   cp ~/.aws/credentials ~/.aws/credentials.backup
+```
+
+1. Export new credentials
+```
+    $   figgy iam export --env dev
+```
+
+1. Run it! YOU WILL GET A: `figgy.figs.ConfigurationMissingException`
+```
+    $   ./run_docker.sh
+```
+
+Oh no! Your app is missing some configurations! No worries, look in the `figgy/` directory. You'll see your application
+auto-generated a definition of the configurations it needs to run under `figgy/figgy.json`. Now we KNOW what we need,
+lets sync the `desired_state` with the `actual_state`
 
 ```console
-    cp ~/.aws/credentials ~/.aws/credentials.backup
-
-    figgy iam export --env dev
+    $   figgy config sync --config figgy/figgy.json
 ```
 
 Run it!
 ```
-    python3 src/app.py
+    $   ./run_docker.sh
 ```
 
-Check check to see who the secret admirer is: http://localhost:5000/
+**Check check to see who the secret admirer is:** http://localhost:5000/
 
 ### Fifth: Add a new config
 
@@ -102,21 +114,21 @@ In src/config.py add a new `AppFig`
 
 Re run the app:
 ```console
-    python3 src/app.py
+    $   ./run_docker.sh
 ```
 
 Look at your figgy.json - notice how it's updated and now shows your configuration in the `app_figs` section?
 
 Rerun sync
 ```console
-    figgy config sync --env dev --config figgy.json
+    $   figgy config sync --env dev --config figgy/figgy.json
 ```
 
 You'll be prompted to add the missing config.
 
-Other paths to experiment with:
+**Other paths to experiment with:**
     - Browe the Fig Orchard to see your configurations: `figgy config browse --env dev`
-    - Delete the config, then rerun sync (this will prompt you to run cleanup)
-    - Try enabling lazy_load=True in `src/app.py`
-        - This will enable you to run the app to generate the figgy.json, run sync, then use the app and have it 
+    - Delete the new config, then rerun sync (this will prompt you to run cleanup)
+    - Try setting `lazy_load=True` in `src/app.py`
+        - This will enable you to run the app to generate the `figgy.json`, run sync, then use the app and have it 
             dynamically pull the new config without a restart.
