@@ -132,3 +132,8 @@ You'll be prompted to add the missing config.
     - Try setting `lazy_load=True` in `src/app.py`
         - This will enable you to run the app to generate the `figgy.json`, run sync, then use the app and have it 
             dynamically pull the new config without a restart.
+            
+            
+#### Using validating during your CICD process:
+- See the `.github/workflows/cicd.yml` for an example of how you can install, configure, and use figgy to run build-time C
+cicd validations!

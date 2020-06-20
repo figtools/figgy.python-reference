@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# This is an example pre-commit hook script that will enable automated config validation on commit.
+
+
+current_branch=$(git rev-parse --abbrev-ref HEAD)
+
+if [[ ${current_branch} -eq "master" ]]; then
+    figgy config validate --env prod --config figgy/figgy.json
+elif [[ ${current_branch} -eq "develop" ]]; then
+    figgy config validate --env dev --config figgy/figgy.json
+elif [[ ${current_branch} -eq "qa" ]]; then
+    figgy config validate --env qa --config figgy/figgy.json
+elif [[ ${current_branch} -eq "stage" ]]; then
+    figgy config validate --env stage --config figgy/figgy.json
+else:
+    figgy config validate --env dev --config figgy/figgy.json
+fi
+
+
