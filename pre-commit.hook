@@ -24,6 +24,3 @@ elif [[ ${current_branch} = "stage" ]]; then
 else:
     figgy config validate --env dev --config figgy/figgy.json
 fi
-
-
-
