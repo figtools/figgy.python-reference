@@ -12,7 +12,7 @@ app = Flask(__name__)
 
 ssm = boto3.client('ssm', region_name='us-east-1')
 svc = FigService(ssm)
-FIGS = Figs(svc, lazy_load=False)
+FIGS = Figs(svc, lazy_load=True)
 
 # Write & Update our current `figgy.json` file on every server run. This ensures our application & configs are in sync.
 if os.environ.get(ENV_LOCAL_RUN) == "true":
@@ -30,5 +30,5 @@ def hello():
 
 
 if __name__ == "__main__":
-    print(f"Starting app with person_name found of: {FIGS.ADMIRED_PERSON}")
+    log.info("Starting app on http://localhost:5000")
     app.run(debug=False, host='0.0.0.0', port=5000, threaded=False)
