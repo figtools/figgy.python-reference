@@ -11,6 +11,8 @@
 
 current_branch=$(git rev-parse --abbrev-ref HEAD)
 
+echo "Found current branch: ${current_branch}"
+
 if [[ ${current_branch} -eq "master" ]]; then
     figgy config validate --env prod --config figgy/figgy.json
 elif [[ ${current_branch} -eq "develop" ]]; then
@@ -22,5 +24,6 @@ elif [[ ${current_branch} -eq "stage" ]]; then
 else:
     figgy config validate --env dev --config figgy/figgy.json
 fi
+
 
 
