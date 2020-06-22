@@ -87,11 +87,11 @@ to your `~/.aws/credentials` file under the `[default]` profile. If you use `[de
 Go to `http://localhost:5000`
 
 Oh no! Your app is missing some configurations! No worries, look in the `figgy/` directory. You'll see your application
-auto-generated a definition of the configurations it needs to run under `figgy/figgy.json`. Now we KNOW what we need,
+**auto-generated a definition of the configurations** it needs to run under `figgy/figgy.json`. Now we KNOW what we need,
 lets sync the `desired_state` with the `actual_state`
 
 ```console
-    $   figgy config sync --config figgy/figgy.json
+    $   figgy config sync 
 ```
 
 **Refresh your browser to see who the secret admirer is:** http://localhost:5000/
@@ -137,18 +137,51 @@ Look at your figgy.json - notice how it's updated and shows your new configurati
 
 Rerun sync
 ```console
-    $   figgy config sync --env dev --config figgy/figgy.json
+    $   figgy config sync --env dev 
 ```
 
 You'll be prompted to add the missing config.
 
+### Sixth: What about those DB credentials?
+
+Remember a few minutes ago when you were asked to input database users and credentials? This was to demonstrate a few things.
+First, we impersonated the DBA and stored our super-secret credentials in a place special to our DBA user that other
+user-types do not have access to. 
+
+In our `config.py` file you'll see this:
+```python
+    # Merged Connection URL (merged figs)
+    SQL_CONNECTION_STRING = MergeFig(
+        name="replicated/sql-connection",
+        pattern=["mysql://", SQL_USER, ":", SQL_PASSWORD, "@", SQL_HOSTNAME, ":", SQL_PORT, "/", SQL_DB_NAME]
+    )
+```
+
+What we are doing here is defining a "merge schema" for how to build our special database connection string.
+
+SQL_USER and SQL_PASSWORD are the two values you stored in the super-secret DBA secret-store. 
+
+SQL_HOSTNAME, SQL_PORT, and SQL_DB_NAME are global non-secret shared parameters that you are having shared into your 
+`/app/YOUR_SERVICE_NAME` namespace because they are declared that way in `config.py`:
+
+```python
+    # Global figs used by many services that we need to use (replicated figs)
+    SQL_HOSTNAME = ReplicatedFig(source="/shared/resources/dbs/fig-db/dns", name="replicated/sql/hostname")
+    SQL_PORT = ReplicatedFig(source="/shared/resources/dbs/fig-db/port", name="replicated/sql/port")
+    SQL_DB_NAME = ReplicatedFig("/shared/resources/dbs/fig-db/db-name", name="replicated/sql/db-name")
+```
+
+All of these values are merged together by `figgy` and kept in sync behind-the-scenes. Your CLI does not do any of this 
+merging, the Figgy serverless ecosystem does. 
+
+The net of it all is, if you go to: `http://localhost:5000/db` you'll see your DB connection string that has been URI encoded
+and dynamically assembled based on the schema defined in `config.py`
+
+
 **Other paths to experiment with:**
-    - Browe the Fig Orchard to see your configurations: `figgy config browse --env dev`
-    - Delete the new config, then rerun sync (this will prompt you to run cleanup)
-    - Try setting `lazy_load=True` in `src/app.py`
-        - This will enable you to run the app to generate the `figgy.json`, run sync, then use the app and have it 
-            dynamically pull the new config without a restart.
-            
+    - Try `figgy config validate ` to see how CICD can easily vaildate your apps configurations.
+    - Browse the Fig Orchard to see your configurations: `figgy config browse --env dev`
+    - Delete a new config, then rerun sync (this will prompt you to run cleanup)
             
 #### Using validating during your CICD process:
 - See the `.github/workflows/cicd.yml` for an example of how you can install, configure, and use figgy to run build-time C

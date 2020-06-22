@@ -29,6 +29,11 @@ def hello():
     return f"Hello {FIGS.ADMIRED_PERSON}, {FIGS.SECRET_ADMIRER} is admiring you!"
 
 
+@app.route("/db")
+def db():
+    return f"DB Connnection UL:  {FIGS.SQL_CONNECTION_STRING}"
+
+
 if __name__ == "__main__":
     log.info("Starting app on http://localhost:5000")
     app.run(debug=False, host='0.0.0.0', port=5000, threaded=False)
