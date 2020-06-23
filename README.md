@@ -5,6 +5,9 @@ To run the DEMO from top to bottom, these are the requirements:
 
 - FiggyCLI must be installed: [Install instructions](https://www.figgy.dev/docs/getting-started/install.html)
 
+Optional: See your configuration changes [In Real Time](https://www.figgy.dev/tabs/sandbox/). Any changes you (or anyone) make with
+figgy push notifications to this web page. This demonstrates the event-driven nature of Figgy.
+
 ### First: Pick a service name:
 Open `src/config.py`
 
@@ -178,11 +181,12 @@ The net of it all is, if you go to: `http://localhost:5000/db` you'll see your D
 and dynamically assembled based on the schema defined in `config.py`
 
 
-**Other paths to experiment with:**
-    - Try `figgy config validate ` to see how CICD can easily vaildate your apps configurations.
-    - Browse the Fig Orchard to see your configurations: `figgy config browse --env dev`
-    - Delete a new config, then rerun sync (this will prompt you to run cleanup)
+### Other paths to experiment with:
+
+- Try `figgy config validate ` to see how CICD can easily vaildate your apps configurations.
+- Browse the Fig Orchard to see your configurations: `figgy config browse --env dev`
+- Delete a new config, then rerun sync (this will prompt you to run cleanup)
             
 #### Using validating during your CICD process:
-- See the `.github/workflows/cicd.yml` for an example of how you can install, configure, and use figgy to run build-time C
+- See the `.github/workflows/cicd.yml` for an example of how you can install, configure, and use figgy to run build-time
 cicd validations!
