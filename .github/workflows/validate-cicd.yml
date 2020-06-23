@@ -39,4 +39,4 @@ jobs:
         echo "$CREDENTIALS_FILE" > ~/.aws/credentials
 
         # Run validate on our QA account.
-        figgy config validate --profile figgy-qa
+        figgy config validate --profile figgy-qa --config .github/examples/figgy.json

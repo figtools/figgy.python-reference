@@ -1,0 +1,30 @@
+{
+    "twig": "/app/jordos-playground",
+    "app_figs": [
+        "/app/jordos-playground/admired-person",
+        "/app/jordos-playground/secret-admirer"
+    ],
+    "replicate_figs": {
+        "/shared/resources/dbs/fig-db/db-name": "/app/jordos-playground/replicated/sql/db-name",
+        "/shared/resources/dbs/fig-db/dns": "/app/jordos-playground/replicated/sql/hostname",
+        "/shared/resources/dbs/fig-db/port": "/app/jordos-playground/replicated/sql/port"
+    },
+    "shared_figs": [
+        "/app/jordos-playground/replicated/sql/password",
+        "/app/jordos-playground/replicated/sql/user"
+    ],
+    "merged_figs": {
+        "/app/jordos-playground/replicated/sql-connection": [
+            "mysql://",
+            "${/app/jordos-playground/replicated/sql/user:uri}",
+            ":",
+            "${/app/jordos-playground/replicated/sql/password:uri}",
+            "@",
+            "${/app/jordos-playground/replicated/sql/hostname}",
+            ":",
+            "${/app/jordos-playground/replicated/sql/port}",
+            "/",
+            "${/app/jordos-playground/replicated/sql/db-name}"
+        ]
+    }
+}
