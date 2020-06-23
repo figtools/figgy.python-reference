@@ -19,7 +19,11 @@ jobs:
 
     - name: Install dependencies
       run: |
-        sudo apt-get install libusb-1.0-0-dev
+
+        sudo apt-get update \
+          && sudo apt-get install libusb-1.0-0-dev libxmu-dev libxmu-headers \
+          freeglut3-dev libxext-dev libxi-dev libudev1 libudev-dev
+
         python -m pip install --upgrade pip
         pip install figgy-cli
 
