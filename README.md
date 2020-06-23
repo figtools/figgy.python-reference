@@ -37,7 +37,7 @@ Now we just need to add the secrets and share it with the service.
 
 1. Log-in to the figgy sandbox:
 
-You will want to select the **DBA** role. The other options are whatever you want.
+When prompted to select a role, you will want to select the **DBA** role. Input whatever you want for other prompts.
  
 ```console
     $   figgy login sandbox
@@ -94,7 +94,7 @@ Oh no! Your app is missing some configurations! No worries, look in the `figgy/`
 lets sync the `desired_state` with the `actual_state`
 
 ```console
-    $   figgy config sync 
+    $   figgy config sync --env dev
 ```
 
 **Refresh your browser to see who the secret admirer is:** http://localhost:5000/
@@ -119,7 +119,6 @@ In src/config.py add a new config, lets call this config the THIRD_WHEEL. It's a
     # Custom Figs specific to my application (app figs)
     SECRET_ADMIRER = AppFig("secret-admirer")
     ADMIRED_PERSON = AppFig("admired-person")
-    SQL_DB_NAME = AppFig("db-name", default="SecretAdmirerDB")
 
     THIRD_WHEEL = AppFig("third-wheel")  # <--- Add this
 ```
@@ -142,6 +141,8 @@ Rerun sync
 ```console
     $   figgy config sync --env dev 
 ```
+
+Go to: `http://localhost:5000` to see who the third wheel is.
 
 You'll be prompted to add the missing config.
 
