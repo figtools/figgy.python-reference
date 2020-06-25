@@ -1,10 +1,10 @@
-# figgy.python-reference 
 ![Figgy](.assets/logo-black-text.png)
 
 [Figgy Website](https://www.figgy.dev)
 
 [Figgy Docs](https://www.figgy.dev/docs/)
 
+# figgy.python-reference 
 
 An example Flask application demonstrating how you can leverage Figgy for application config management.
 
