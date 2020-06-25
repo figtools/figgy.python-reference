@@ -1,4 +1,11 @@
 # figgy.python-reference 
+![Figgy](.assets/logo-black-text.png)
+
+[Figgy Website](https://www.figgy.dev)
+
+[Figgy Docs](https://www.figgy.dev/docs/)
+
+
 An example Flask application demonstrating how you can leverage Figgy for application config management.
 
 To run the DEMO from top to bottom, these are the requirements:
