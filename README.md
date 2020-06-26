@@ -12,8 +12,9 @@ To run the DEMO from top to bottom, these are the requirements:
 
 - FiggyCLI must be installed: [Install instructions](https://www.figgy.dev/docs/getting-started/install/)
 
-Optional: See your configuration changes [In Real Time](https://www.figgy.dev/tabs/sandbox/). Any changes you (or anyone) make with
-figgy push notifications to this web page. This demonstrates the event-driven nature of Figgy.
+Optional: See your configuration changes [In Real Time](https://www.figgy.dev/tabs/sandbox/). 
+
+Any changes you (or anyone) make will figgy push notifications to this web page. This demonstrates the event-driven nature of Figgy.
 
 ### First: Pick a service name:
 Open `src/config.py`
