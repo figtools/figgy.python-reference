@@ -37,11 +37,10 @@ playing right now.
 ### Second: Add our secret configs
 Take notice of the `figgy-secrets.json` in your `figgy/` directory.
 
-1. Open `figgy-secrets.json` and replace `YOUR_SERVICE` with the service name you just selected. There are 4 places to update in this file.
-
 In this case, lets pretend you're a DBA and you're creating a definition of all secrets you manage for `YOUR_SERVICE`,
 this is the definition of what they are, where they're stored, and what application is using them. 
-Now we just need to add the secrets and share it with the service.
+
+Now we just need to add the secrets and share it with our service.
 
 1. Log-in to the figgy sandbox and impersonate a database administrator.
  
