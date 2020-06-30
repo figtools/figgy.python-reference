@@ -55,13 +55,15 @@ Great, you're now impersonating the DBA, since you're the *secret owner*, lets s
     figgy config sync --config figgy/figgy-secrets.json --env dev --replication-only
 ```
 
+When asked to enter the SERVICE_NAME, input the SERVICE_NAME you put in `src/config.py`. 
+
 Follow the prompts, you'll be asked to add a username / password. You can put anything and encrypt it with whatever
 encryption key you want ;). 
 
 Booya, you just stored some UBER secret credentials AND you shared them with our application! Woo woo! :sunglasses:
 
 ### Third: Add our application configs
-Next, lets impersonate a developer, so lets re-login to the sandbox and select `dev` for the ROLE.
+Next, lets impersonate a developer, so lets re-login to the sandbox under the `dev` role
 
 ```console
     $   figgy login sandbox --role dev
