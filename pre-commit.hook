@@ -14,13 +14,13 @@ current_branch=$(git rev-parse --abbrev-ref HEAD)
 echo "Found current branch: ${current_branch}"
 
 if [[ ${current_branch} = "master" ]]; then
-    figgy config validate --env prod --config figgy/figgy.json
+    figgy config validate --env prod
 elif [[ ${current_branch} = "develop" ]]; then
-    figgy config validate --env dev --config figgy/figgy.json
+    figgy config validate --env dev
 elif [[ ${current_branch} = "qa" ]]; then
-    figgy config validate --env qa --config figgy/figgy.json
+    figgy config validate --env qa
 elif [[ ${current_branch} = "stage" ]]; then
-    figgy config validate --env stage --config figgy/figgy.json
+    figgy config validate --env stage
 else:
-    figgy config validate --env dev --config figgy/figgy.json
+    figgy config validate --env dev
 fi

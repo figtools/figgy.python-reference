@@ -183,7 +183,8 @@ and dynamically assembled based on the schema defined in `config.py`
 
 ### Other paths to experiment with:
 
-- Try `figgy config validate ` to see how CICD can easily vaildate your apps configurations.
+- Try `figgy config validate --env dev` to see how CICD can easily validate your apps configurations.
+- Try `figgy config validate --env qa` to see how your configs are missing from QA but are in DEV.
 - Browse the Fig Orchard to see your configurations: `figgy config browse --env dev`
 - Delete a new config, then rerun sync (this will prompt you to run cleanup)
             
