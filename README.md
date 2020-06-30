@@ -43,17 +43,13 @@ In this case, lets pretend you're a DBA and you're creating a definition of all 
 this is the definition of what they are, where they're stored, and what application is using them. 
 Now we just need to add the secrets and share it with the service.
 
-1. Log-in to the figgy sandbox:
-
-When prompted to select a role, you will want to select the **DBA** role. Input whatever you want for other prompts.
+1. Log-in to the figgy sandbox and impersonate a database administrator.
  
 ```console
-    $   figgy login sandbox
-
-    Please select a role to impersonate:
-    Options: ['dev', 'devops', 'sre', 'data', 'dba']
------> dba <------
+    $   figgy login sandbox --role dba
 ```
+
+You'll need to answer a couple prompts. 
 
 Great, you're now impersonating the DBA, since you're the *secret owner*, lets store the secrets your app needs:
 ```console
@@ -69,26 +65,20 @@ Booya, you just stored some UBER secret credentials AND you shared them with our
 Next, lets impersonate a developer, so lets re-login to the sandbox and select `dev` for the ROLE.
 
 ```console
-    $   figgy login sandbox
-
-    Please select a role to impersonate:
-    Options: ['dev', 'devops', 'sre', 'data', 'dba']
------> dev <------
+    $   figgy login sandbox --role dev
 ```
 
 ### Fourth: Run our app!
 Export temporary credentials so our app has permissions to access ParameterStore. This will write temporary credentials 
-to your `~/.aws/credentials` file under the `[default]` profile. If you use `[default]`, backup your existing credentials file. 
-
-1. Backup your credentials file
-```console
-    $   cp ~/.aws/credentials ~/.aws/credentials.backup
-```
+to your `~/.aws/credentials` file under the `[default]` profile. Don't worry, Figgy won't overwrite any credentials
+in your local `~/.aws/credentials` file.
 
 1. Export new credentials
 ```
     $   figgy iam export --env dev
 ```
+Not now, but when you're done, you can restore your backed up credentials with: `figgy iam restore`
+
 
 1. Run it! 
 ```
