@@ -1,7 +1,5 @@
 ![Figgy](.assets/logo-black-text.png)
 
-[Figgy Website](https://www.figgy.dev)
-
 [Figgy Docs](https://www.figgy.dev/docs/)
 
 # figgy.python-reference 
@@ -12,7 +10,7 @@ To run the DEMO from top to bottom, these are the requirements:
 
 - FiggyCLI must be installed: [Install instructions](https://www.figgy.dev/docs/getting-started/install/)
 
-Optional: See your configuration changes [In Real Time](https://www.figgy.dev/tabs/sandbox/). 
+Optional: See your configuration changes [In Real Time](https://www.figgy.dev/docs/getting-started/sandbox/). 
 
 Any changes you (or anyone) make will figgy push notifications to this web page. This demonstrates the event-driven nature of Figgy.
 
