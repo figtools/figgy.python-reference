@@ -31,7 +31,7 @@ def hello():
 
 @app.route("/db")
 def db():
-    return f"DB Connnection UL:  {FIGS.SQL_CONNECTION_STRING}"
+    return f"DB Connection URL:  {FIGS.SQL_CONNECTION_STRING}"
 
 
 if __name__ == "__main__":
