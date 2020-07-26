@@ -1,6 +1,6 @@
 ![Figgy](.assets/logo-black-text.png)
 
-[Figgy Docs](https://www.figgy.dev/docs/)
+[Figgy Docs](https://www.figgy.dev)
 
 # figgy.python-reference 
 
