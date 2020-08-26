@@ -53,7 +53,7 @@ Great, you're now impersonating the DBA, since you're the *secret owner*, lets s
     figgy config sync --config figgy/figgy-secrets.json --env dev --replication-only
 ```
 
-When asked to enter the SERVICE_NAME, input the SERVICE_NAME you put in `src/config.py`. 
+**Important:** When asked to enter the SERVICE_NAME, input the SERVICE_NAME you put in `src/config.py`. 
 
 Follow the prompts, you'll be asked to add a username / password. You can put anything and encrypt it with whatever
 encryption key you want ;). 
