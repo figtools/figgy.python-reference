@@ -139,9 +139,9 @@ Rerun sync
     $   figgy config sync --env dev 
 ```
 
-Go to: `http://localhost:5000` to see who the third wheel is.
-
 You'll be prompted to add the missing config.
+
+Go to: `http://localhost:5000` to see who the third wheel is.
 
 ### Sixth: What about those DB credentials?
 
