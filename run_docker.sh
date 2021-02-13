@@ -1,7 +1,5 @@
 #!/bin/bash
 
-chown
-
 docker build -t figgy-python:demo .
 
 # The ~/.aws/ directory is mounted into the container to give the container access to IAM credentials
