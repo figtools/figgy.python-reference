@@ -189,3 +189,4 @@ and dynamically assembled based on the schema defined in `config.py`
 #### Using validating during your CICD process:
 - See the `.github/workflows/cicd.yml` for an example of how you can install, configure, and use figgy to run build-time
 cicd validations!
+
